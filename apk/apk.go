@@ -75,6 +75,12 @@ func (k *Apk) Close() error {
 	return k.f.Close()
 }
 
+// IconPath returns the icon path of the APK.
+func (k *Apk) IconPath(resConfig *androidbinary.ResTableConfig) string {
+	iconPath := k.getResource(k.manifest.App.Icon, resConfig)
+	return iconPath
+}
+
 // Icon returns the icon image of the APK.
 func (k *Apk) Icon(resConfig *androidbinary.ResTableConfig) (image.Image, error) {
 	iconPath := k.getResource(k.manifest.App.Icon, resConfig)
