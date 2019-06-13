@@ -12,7 +12,7 @@ import (
 	"strconv"
 
 	"github.com/pkg/errors"
-	"github.com/shogo82148/androidbinary"
+	"github.com/yangzhen0512/androidbinary"
 
 	_ "image/jpeg" // handle jpeg format
 	_ "image/png"  // handle png format
