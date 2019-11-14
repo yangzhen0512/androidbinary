@@ -1,4 +1,4 @@
-module github.com/shogo82148/androidbinary
+module github.com/akonliu/androidbinary
 
 require (
 	github.com/pkg/errors v0.8.1
