@@ -11,8 +11,8 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/akonliu/androidbinary"
 	"github.com/pkg/errors"
-	"github.com/yangzhen0512/androidbinary"
 
 	_ "image/jpeg" // handle jpeg format
 	_ "image/png"  // handle png format
