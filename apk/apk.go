@@ -87,7 +87,7 @@ func (k *Apk) Icon(resConfig *androidbinary.ResTableConfig) (image.Image, error)
 	if androidbinary.IsResID(iconPath) {
 		return nil, errors.New("unable to convert icon-id to icon path")
 	}
-	imgData, err := k.readZipFile(iconPath)
+	imgData, err := k.ReadZipFile(iconPath)
 	if err != nil {
 		return nil, err
 	}
@@ -112,6 +112,10 @@ func (k *Apk) Manifest() Manifest {
 // PackageName returns the package name of the APK.
 func (k *Apk) PackageName() string {
 	return k.manifest.Package
+}
+
+func (k *Apk) Table() *androidbinary.TableFile {
+	return k.table
 }
 
 func isMainIntentFilter(intent ActivityIntentFilter) bool {
@@ -156,7 +160,7 @@ func (k *Apk) MainActivity() (activity string, err error) {
 }
 
 func (k *Apk) parseManifest() error {
-	xmlData, err := k.readZipFile("AndroidManifest.xml")
+	xmlData, err := k.ReadZipFile("AndroidManifest.xml")
 	if err != nil {
 		return errors.Wrap(err, "read-manifest.xml")
 	}
@@ -173,7 +177,7 @@ func (k *Apk) parseManifest() error {
 }
 
 func (k *Apk) parseResources() (err error) {
-	resData, err := k.readZipFile("resources.arsc")
+	resData, err := k.ReadZipFile("resources.arsc")
 	if err != nil {
 		return
 	}
@@ -193,7 +197,7 @@ func (k *Apk) getResource(id string, resConfig *androidbinary.ResTableConfig) st
 	return fmt.Sprintf("%s", val)
 }
 
-func (k *Apk) readZipFile(name string) (data []byte, err error) {
+func (k *Apk) ReadZipFile(name string) (data []byte, err error) {
 	buf := bytes.NewBuffer(nil)
 	for _, file := range k.zipreader.File {
 		if file.Name != name {
